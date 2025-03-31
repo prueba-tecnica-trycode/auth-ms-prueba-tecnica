@@ -129,4 +129,26 @@ export class AuthService {
       });
     }
   }
+
+  async getById(id: string) {
+    const user = await this.userRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!user) {
+      throw new RpcException({
+        statusCode: 400,
+        message: 'User not found',
+      });
+    }
+
+    return {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      createdAt: user.createdAt,
+    };
+  }
 }

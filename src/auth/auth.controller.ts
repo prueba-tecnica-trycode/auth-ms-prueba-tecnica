@@ -27,4 +27,9 @@ export class AuthController {
   verify(@Payload() token: { token: string }) {
     return this.authService.verify(token.token);
   }
+
+  @MessagePattern('getbyid.user.or.admin')
+  getById(@Payload() id: { id: string }) {
+    return this.authService.getById(id.id);
+  }
 }
